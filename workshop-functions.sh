@@ -32,6 +32,12 @@ rules:
   - jobs
   - cronjobs
   verbs: ["*"]
+- apiGroups: ["networking.istio.io"]
+  resources:
+  - virtualservices
+  - gateways
+  - destinationrules
+  verbs: ["*"]
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources:
   - roles
@@ -352,9 +358,9 @@ clean-user() {
 }
 
 list-sessions() {
-  echo === unassigned sessions:
+  echo "=== unassigned sessions:"
   kubectl get deployments --all-namespaces -l 'user,!ghuser'
-  echo === assigned sessions:
+  echo "=== assigned sessions:"
   kubectl get deployments \
     --all-namespaces \
     -l ghuser \
